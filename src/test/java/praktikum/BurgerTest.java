@@ -75,11 +75,11 @@ public class BurgerTest {
         Mockito.when(ingredient1Mock.getType()).thenReturn(IngredientType.SAUCE);
         Mockito.when(ingredient1Mock.getName()).thenReturn(ingredientName);
         Mockito.when(burger.getPrice()).thenReturn(price);
-        String receipt=
-                String.format("(==== %s ====)\n", bunName)
-               + String.format("= %s %s =\n", ingredientType, ingredientName)
-               + String.format("(==== %s ====)\n", bunName)
-               + "\nPrice: 100500,000000\n";
-        Assert.assertEquals(receipt, burger.getReceipt());
+        StringBuilder receipt = new StringBuilder(String.format("(==== %s ====)%n", bunName));
+        receipt.append(String.format("= %s %s =%n", ingredientType, ingredientName));
+        receipt.append(String.format("(==== %s ====)%n", bunName));
+        receipt.append(String.format("%nPrice: %f%n", price));
+        String expected = receipt.toString();
+        Assert.assertEquals(expected, burger.getReceipt());
     }
 }
